@@ -1,5 +1,7 @@
 import numpy as np
 
+def model(x,a,b):
+    return a*x**2.+b
 
 def logLike(theory,data,invcovmat):
     """Calculate lnLike = -0.5*chisquare for a data vector
@@ -32,6 +34,7 @@ def logLike(theory,data,invcovmat):
     >>> logLike(2.,1.,1.)
     -0.5
 
+
     >>> a = np.array([1.,2.])
     >>> amat = np.array([[2.,3.],[3.,2.]])
     >>> theory = np.array([1.5,2.])
@@ -51,5 +54,7 @@ def logLike(theory,data,invcovmat):
         assert invcovmat.size==1
         
     diff = theory-data
-    interm = np.dot(diff,invcovmat)
-    return -0.5*np.dot(interm,diff)
+    interm = np.dot(diff.T,invcovmat)
+    ans = -0.5*np.dot(interm,diff)
+    assert ans.size==1
+    return ans.ravel()[0]

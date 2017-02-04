@@ -1,18 +1,19 @@
 import unittest
 
-class FixturesTest(unittest.TestCase):
+class LikeTests(unittest.TestCase):
 
     def setUp(self):
-        print('In setUp()')
-        self.fixture = range(1, 10)
+        self.testModelVec = np.loadtxt("data/testTheory.txt")
+        self.testDataVec = np.loadtxt("data/testData.txt")
+        self.testInvCov = np.loadtxt("data/testInv.txt")
 
     def tearDown(self):
-        print('In tearDown()')
-        del self.fixture
+        del self.testModelVec
+        del self.testDataVec
+        del self.testInvCov
 
-    def test(self):
-        print('in test()')
-        self.assertEqual(self.fixture, range(1, 10))
+    def test_model(self):
+        self.assertEqual(self.testModelVec, range(1, 10))
 
 
 if __name__ == '__main__':
