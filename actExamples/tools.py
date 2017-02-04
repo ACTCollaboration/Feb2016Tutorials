@@ -2,8 +2,6 @@ import time
 import numpy as np
 import numba as nb
 
-def listFromConfig(Config,section,name):
-    return [float(x) for x in Config.get(section,name).split(',')]
 
 def timeit(method):
 

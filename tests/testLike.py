@@ -1,9 +1,10 @@
 import unittest
 import actExamples.likelihood as lhood
-from actExamples.tools import listFromConfig
 import numpy as np
 from ConfigParser import SafeConfigParser 
 
+def listFromConfig(Config,section,name):
+    return [float(x) for x in Config.get(section,name).split(',')]
 
 class LikeTests(unittest.TestCase):
     
