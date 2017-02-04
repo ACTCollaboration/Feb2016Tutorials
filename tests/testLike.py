@@ -1,24 +1,33 @@
 import unittest
 import actExamples.likelihood as lhood
+from actExamples.tools import listFromConfig
 import numpy as np
+from ConfigParser import SafeConfigParser 
+
 
 class LikeTests(unittest.TestCase):
-
+    
+    def setUp(self):
+        iniFile = "tests/config.ini"
+        self.Config = SafeConfigParser()
+        self.Config.optionxform=str
+        self.Config.read(iniFile)
 
     def test_model(self):
-        model_true = np.loadtxt("tests/data/testTheory.txt")
-        vec = np.linspace(10.,20.,5)
-        ans = lhood.model(vec,3,4)
+        model_true = np.loadtxt(self.Config.get("files","testModelVec"))
+        vec = np.asarray(listFromConfig(self.Config,"makeTest","testVec"))
+        paramA = self.Config.getfloat("makeTest","paramA")
+        paramB = self.Config.getfloat("makeTest","paramB")
+        ans = lhood.model(vec,paramA,paramB)
         self.assertEqual(model_true.tolist(), ans.tolist())
 
     def test_lnLike(self):
-        model = np.loadtxt("tests/data/testTheory.txt")
-        data = np.loadtxt("tests/data/testData.txt")
-        invc = np.loadtxt("tests/data/testInv.txt")
-        vec = np.linspace(10.,20.,5)
+        model = np.loadtxt(self.Config.get("files","testModelVec"))
+        data = np.loadtxt(self.Config.get("files","testDataVec"))
+        invc = np.loadtxt(self.Config.get("files","testInvCov"))
         ans = lhood.logLike(model,data,invc)
-        expected = -3145074.28075
-        self.assertAlmostEqual(ans, expected,places=5)
+        expected = self.Config.getfloat("makeTest","expected")
+        self.assertAlmostEqual(ans, expected,places=self.Config.getint("makeTest","precisionPlaces"))
         
 
 if __name__ == '__main__':
