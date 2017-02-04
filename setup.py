@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup
 import os
 
 
@@ -6,8 +6,7 @@ import os
 setup(name='actExamples',
       version='0.1',
       description='ACT Examples',
-      author='Mathew Madhavacheril',
-      author_email='mathewsyriac@gmail.com',
+      author='ACT Collaboration',
+      install_requires=['numpy'],
       license='BSD-2-Clause',
-      packages=['actExamples'],
-      zip_safe=False)
+      packages=['actExamples'])
