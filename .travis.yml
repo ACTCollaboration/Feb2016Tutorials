@@ -6,4 +6,4 @@ python:
 install:
   - pip install .
 # command to run tests
-script: tests/testLike.py
+script: python tests/testLike.py
