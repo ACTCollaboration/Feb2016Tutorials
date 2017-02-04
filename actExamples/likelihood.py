@@ -55,6 +55,6 @@ def logLike(theory,data,invcovmat):
         
     diff = theory-data
     interm = np.dot(diff.T,invcovmat)
-    ans = -0.5*np.dot(interm,diff)
+    ans = -np.dot(interm,diff)
     assert ans.size==1
     return ans.ravel()[0]
